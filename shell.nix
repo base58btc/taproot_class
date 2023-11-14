@@ -27,5 +27,5 @@ mkShell {
   ];
 
   # Automatically run jupyter when entering the shell.
-  shellHook = "jupyter notebook";
+  #shellHook = "jupyter notebook";
 }
