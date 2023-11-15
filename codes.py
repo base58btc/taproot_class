@@ -27,9 +27,9 @@ def parse_compact_size(data):
 def size_compact_size(size):
   if size < 253:
     return (size).to_bytes(1, 'little')
-  if size < 254:
+  if size < 0xffff:
     return bytes([0xfd]) + (size).to_bytes(2, 'little')
-  if size < 255:
+  if size < 0xffffffff:
     return bytes([0xfe]) + (size).to_bytes(4, 'little')
 
   return bytes([0xff]) + (size).to_bytes(8, 'little')
