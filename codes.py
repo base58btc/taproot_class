@@ -5,9 +5,24 @@
 
 from hashlib import sha256
 import coincurve
+import re
+
 
 n = 115792089237316195423570985008687907852837564279074904382605163141518161494337
 p = 115792089237316195423570985008687907853269984665640564039457584007908834671663
+
+
+def cleanup_tx(hmn_read_tx):
+    """ Given a block of text, strip out everything except 
+        the hex strings
+    """
+    ret_val = []
+    lines = hmn_read_tx.split('\n')
+    for line in lines:
+        substr = line.split(':')[-1]  # suggested-by @chrisguida + @macaki
+        ret_val += re.findall(r'[0-9a-fA-F]{2}', substr)
+    return ''.join(ret_val)
+
 
 # FIXME: move these to common/utils lib
 def parse_compact_size(data):
